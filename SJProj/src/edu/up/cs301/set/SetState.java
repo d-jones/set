@@ -1,4 +1,4 @@
-package edu.up.cs301.slapjack;
+package edu.up.cs301.set;
 
 import edu.up.cs301.card.Card;
 import edu.up.cs301.game.infoMsg.GameState;
@@ -11,7 +11,7 @@ import edu.up.cs301.game.infoMsg.GameState;
  * @author Steven R. Vegdahl 
  * @version July 2013
  */
-public class SJState extends GameState
+public class SetState extends GameState
 {
 	private static final long serialVersionUID = -8269749892027578792L;
 
@@ -35,7 +35,7 @@ public class SJState extends GameState
      * game, with a random player as the first to turn card
      *  
      */
-    public SJState() {
+    public SetState() {
     	// randomly pick the player who starts
     	toPlay = (int)(2*Math.random());
     	
@@ -61,7 +61,7 @@ public class SJState extends GameState
      *  
      * @param orig  the state to be copied
      */
-    public SJState(SJState orig) {
+    public SetState(SetState orig) {
     	// set index of player whose turn it is
     	toPlay = orig.toPlay;
     	// create new deck array, making copy of each deck

@@ -1,4 +1,4 @@
-package edu.up.cs301.slapjack;
+package edu.up.cs301.set;
 
 import android.util.Log;
 import edu.up.cs301.card.Card;
@@ -14,13 +14,13 @@ import edu.up.cs301.game.infoMsg.TimerInfo;
  * @author Steven R. Vegdahl
  * @version July 2013 
  */
-public class SJComputerPlayer extends GameComputerPlayer
+public class SetComputerPlayer extends GameComputerPlayer
 {
 	// the minimum reaction time for this player, in milliseconds
 	private double minReactionTimeInMillis;
 	
 	// the most recent state of the game
-	private SJState savedState;
+	private SetState savedState;
 	
     /**
      * Constructor for the SJComputerPlayer class; creates an "average"
@@ -29,7 +29,7 @@ public class SJComputerPlayer extends GameComputerPlayer
      * @param name
      * 		the player's name
      */
-    public SJComputerPlayer(String name) {
+    public SetComputerPlayer(String name) {
         // invoke general constructor to create player whose average reaction
     	// time is half a second.
         this(name, 0.5);
@@ -38,7 +38,7 @@ public class SJComputerPlayer extends GameComputerPlayer
     /*
      * Constructor for the SJComputerPlayer class
      */
-    public SJComputerPlayer(String name, double avgReactionTime) {
+    public SetComputerPlayer(String name, double avgReactionTime) {
         // invoke superclass constructor
         super(name);
         
@@ -75,12 +75,12 @@ public class SJComputerPlayer extends GameComputerPlayer
     protected void receiveInfo(GameInfo info) {
     	
     	// if we don't have a game-state, ignore
-    	if (!(info instanceof SJState)) {
+    	if (!(info instanceof SetState)) {
     		return;
     	}
     	
     	// update our state variable
-    	savedState = (SJState)info;
+    	savedState = (SetState)info;
     	
     	// access the state's middle deck
     	Deck middleDeck = savedState.getDeck(2);
@@ -105,7 +105,7 @@ public class SJComputerPlayer extends GameComputerPlayer
         	sleep((int)(2000*Math.random()));
         	
         	// submit our move to the game object
-        	game.sendAction(new SJPlayAction(this));
+        	game.sendAction(new SetCardsAction(this));
     	}
     }
 }

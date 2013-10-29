@@ -1,4 +1,4 @@
-package edu.up.cs301.slapjack;
+package edu.up.cs301.set;
 
 import edu.up.cs301.game.Game;
 
@@ -8,6 +8,6 @@ import edu.up.cs301.game.Game;
  * @author Steven R. Vegdahl
  * @version 25 July 2002
  */
-public interface SJGame extends Game
+public interface SetGame extends Game
 {
 }

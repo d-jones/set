@@ -1,4 +1,4 @@
-package edu.up.cs301.slapjack;
+package edu.up.cs301.set;
 
 import android.util.Log;
 import edu.up.cs301.card.Rank;
@@ -15,18 +15,18 @@ import edu.up.cs301.game.config.GameConfig;
  * @version July 2013
  */
 
-public class SJLocalGame extends LocalGame implements SJGame {
+public class SetLocalGame extends LocalGame implements SetGame {
 
     // the game's state
-    SJState state;
+    SetState state;
 
     /**
      * Constructor for the SJLocalGame.
      */
-    public SJLocalGame() {
+    public SetLocalGame() {
         Log.i("SJLocalGame", "creating game");
         // create the state for the beginning of the game
-        state = new SJState();
+        state = new SetState();
     }
 
 
@@ -86,7 +86,7 @@ public class SJLocalGame extends LocalGame implements SJGame {
 
 		// make a copy of the state; null out all cards except for the
 		// top card in the middle deck
-		SJState stateForPlayer = new SJState(state); // copy of state
+		SetState stateForPlayer = new SetState(state); // copy of state
 		stateForPlayer.nullAllButTopOf2(); // put nulls except for visible card
 		
 		// send the modified copy of the state to the player
@@ -123,10 +123,10 @@ public class SJLocalGame extends LocalGame implements SJGame {
 	protected boolean makeMove(GameAction action) {
 		
 		// check that we have slap-jack action; if so cast it
-		if (!(action instanceof SJMoveAction)) {
+		if (!(action instanceof SetCallAction)) {
 			return false;
 		} 
-		SJMoveAction sjma = (SJMoveAction) action;
+		SetCallAction sjma = (SetCallAction) action;
 		
 		// get the index of the player making the move; return false
 		int thisPlayerIdx = getPlayerIdx(sjma.getPlayer());
