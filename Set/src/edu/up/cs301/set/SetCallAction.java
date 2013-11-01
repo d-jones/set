@@ -4,43 +4,45 @@ import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.actionMsg.GameAction;
 
 /**
- * A game-move object that a tic-tac-toe player sends to the game to make
+ * A game-move object that a Set player sends to the game to make
  * a move.
  * 
- * @author Steven R. Vegdahl
- * @version 2 July 2001
+ * @author Dillon Arnold
+ * @version 1 November 2013
  */
 public abstract class SetCallAction extends GameAction {
 	
 	private static final long serialVersionUID = -3107100271012188849L;
 
     /**
-     * Constructor for SJMoveAction
+     * Constructor for SetCallAction
      *
-     * @param source the player making the move
-     * @param row the row of the square selected (0-2)
-     * @param col the column of the square selected
+     * @param player - the player making the move
      */
     public SetCallAction(GamePlayer player)
     {
-        // invoke superclass constructor to set source
+        // Invoke superclass constructor to set source
         super(player);
     }
     
     /**
-     * @return
-     * 		whether the move was a slap
+     * @return whether the move was a call
      */
-    public boolean isSlap() {
+    public boolean isCall() {
+    	return true;
+    }
+    
+    /**
+     * @return whether the move was a card
+     */
+    public boolean isCard() {
     	return false;
     }
     
     /**
-     * @return
-     * 		whether the move was a "play"
+     * @return whether the move was quit
      */
-    public boolean isPlay() {
+    public boolean isQuit() {
     	return false;
     }
-
 }
