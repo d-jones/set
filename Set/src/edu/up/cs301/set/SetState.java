@@ -29,6 +29,9 @@ public class SetState extends GameState
     
     // Score of each player sorted by index
     private int[] scores;
+    
+    // If a set can be formed from the play area
+    private boolean setPossible;
 
     /**
      * Constructor for objects of class SetState. Initializes for the beginning of the
@@ -105,5 +108,29 @@ public class SetState extends GameState
      */
     public int getScore(int idx) {
         return scores[idx];
+    }
+    
+    /**
+     * Returns the deck
+     * 
+     * @return d - the deck
+     */
+    public Deck getDeck(int d) {
+        return decks[d];
+    }
+    
+    /**
+     * Set if set can be formed
+     * @return 
+     */
+    public void setSetPossible(boolean b) {
+        setPossible = b;
+    }
+    
+    /**
+     * Returns if a set is possible
+     */
+    public boolean getSetPossible() {
+        return setPossible;
     }
 }
