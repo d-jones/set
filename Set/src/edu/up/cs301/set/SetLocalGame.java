@@ -1,6 +1,7 @@
 package edu.up.cs301.set;
 
 import android.util.Log;
+import edu.up.cs301.card.Card;
 import edu.up.cs301.card.Rank;
 import edu.up.cs301.game.Game;
 import edu.up.cs301.game.GamePlayer;
@@ -32,10 +33,9 @@ public class SetLocalGame extends LocalGame implements Game {
 
 
     /**
-     * checks whether the game is over; if so, returns a string giving the result
+     * Checks whether the game is over; if so, returns a string giving the result
      * 
-     * @result
-     * 		the end-of-game message, or null if the game is not over
+     * @result The end-of-game message, or null if the game is not over
      */
     @Override
     protected String checkIfGameOver() {
@@ -70,27 +70,19 @@ public class SetLocalGame extends LocalGame implements Game {
     }
 
     /**
-     * sends the updated state to the given player. In our case, we need to
-     * make a copy of the Deck, and null out all the cards except the top card
-     * in the middle deck, since that's the only one they can "see"
+     * Sends state to player
      * 
-     * @param p
-     * 		the player to which the state is to be sent
+     * @param p - the player to which the state is to be sent
      */
 	@Override
 	protected void sendUpdatedStateTo(GamePlayer p) {
-		// if there is no state to send, ignore
+		// If there is no state to send, ignore
 		if (state == null) {
 			return;
 		}
-
-		// make a copy of the state; null out all cards except for the
-		// top card in the middle deck
-		SetState stateForPlayer = new SetState(state); // copy of state
-		stateForPlayer.nullAllButTopOf2(); // put nulls except for visible card
 		
-		// send the modified copy of the state to the player
-		p.sendInfo(stateForPlayer);
+		// Send state to player
+		p.sendInfo(state);
 	}
 	
 	/**
@@ -125,7 +117,7 @@ public class SetLocalGame extends LocalGame implements Game {
 		if (!(action instanceof SetMoveAction)) {
 			return false;
 		} 
-		SetCallAction sma = (SetMoveAction) action;
+		SetMoveAction sma = (SetMoveAction) action;
 		
 		// Get the index of the player making the move; return false
 		int playerIdx = getPlayerIdx(sma.getPlayer());
@@ -138,18 +130,23 @@ public class SetLocalGame extends LocalGame implements Game {
 			// If we have a call 
 			state.setToPlay(playerIdx);
 		}
-		else if (sma.isCards()) { // we have a "play" action
-			if (thisPlayerIdx != state.toPlay()) {
-				// attempt to play when it's the other player's turn
+		else if (sma.isCards()) { // Player selected cards
+			if (playerIdx != state.toPlay()) {
+				// Attempt to play when it's the other player's turn
 				return false;
 			}
 			else {
-				// it's the correct player's turn: move the top card from the
-				// player's deck to the top of the middle deck
-				state.getDeck(thisPlayerIdx).moveTopCardTo(state.getDeck(2));
-				// if the opponent has any cards, make it the opponent's move
-				if (state.getDeck(1-thisPlayerIdx).size() > 0) {
-					state.setToPlay(1-thisPlayerIdx);
+				// It's the correct player's turn: process the chosen cards
+				// and update state accordingly
+				Card c1 = ((SetCardsAction) sma).getCard(0);
+				Card c2 = ((SetCardsAction) sma).getCard(1);
+				Card c3 = ((SetCardsAction) sma).getCard(2);
+				
+				if (isSet(c1, c2, c3)) {
+					state.setScore(playerIdx,state.getScore(playerIdx) + 1);
+				}
+				else {
+					//Penalty
 				}
 			}
 		}

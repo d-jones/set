@@ -111,6 +111,16 @@ public class SetState extends GameState
     }
     
     /**
+     * Sets the score of the player
+     * 
+     * @param idx - the index of the player
+     * @param score - score of player
+     */
+    public void setScore(int idx, int score) {
+        scores[idx] = score;
+    }
+    
+    /**
      * Returns the deck
      * 
      * @return d - the deck
