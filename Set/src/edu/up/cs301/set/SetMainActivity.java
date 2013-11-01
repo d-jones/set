@@ -20,7 +20,7 @@ public class SetMainActivity extends GameMainActivity {
 	
 	public static final int PORT_NUMBER = 4752;
 
-	/** a slapjack game for two players. The default is human vs. computer */
+	/** A Set game for two players. The default is human vs. computer */
 	@Override
 	public GameConfig createDefaultConfig() {
 
@@ -31,39 +31,32 @@ public class SetMainActivity extends GameMainActivity {
 			public GamePlayer createPlayer(String name) {
 				return new SetHumanPlayer(name, Color.GREEN);
 			}});
+		playerTypes.add(new GamePlayerType("human player (blue)") {
+			public GamePlayer createPlayer(String name) {
+				return new SetHumanPlayer(name, Color.BLUE);
+			}});
+		playerTypes.add(new GamePlayerType("human player (red") {
+			public GamePlayer createPlayer(String name) {
+				return new SetHumanPlayer(name, Color.RED);
+			}});
 		playerTypes.add(new GamePlayerType("human player (yellow)") {
 			public GamePlayer createPlayer(String name) {
 				return new SetHumanPlayer(name, Color.YELLOW);
 			}
 		});
-		playerTypes.add(new GamePlayerType("computer player (normal)") {
+		playerTypes.add(new GamePlayerType("computer player (dumb)") {
 			public GamePlayer createPlayer(String name) {
 				return new SetComputerPlayer(name);
 			}
 		});
-		playerTypes.add(new GamePlayerType("computer player (fast)") {
+		playerTypes.add(new GamePlayerType("computer player (smart)") {
 			public GamePlayer createPlayer(String name) {
 				return new SetComputerPlayer(name, 0.3);
 			}
 		});
-		playerTypes.add(new GamePlayerType("computer player (slow)") {
-			public GamePlayer createPlayer(String name) {
-				return new SetComputerPlayer(name, 1.0);
-			}
-		});
-		playerTypes.add(new GamePlayerType("computer player (very fast)") {
-			public GamePlayer createPlayer(String name) {
-				return new SetComputerPlayer(name, 0.15);
-			}
-		});
-		playerTypes.add(new GamePlayerType("computer player (very slow)") {
-			public GamePlayer createPlayer(String name) {
-				return new SetComputerPlayer(name, 3.5);
-			}
-		});
 
-		// Create a game configuration class for SlapJack
-		GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "SlapJack", PORT_NUMBER);
+		// Create a game configuration class for Set
+		GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Set", PORT_NUMBER);
 
 		// Add the default players
 		defaultConfig.addPlayer("Human", 0);
@@ -72,7 +65,7 @@ public class SetMainActivity extends GameMainActivity {
 		// Set the initial information for the remote player
 		defaultConfig.setRemoteData("Guest", "", 1);
 		
-		//done!
+		//Done
 		return defaultConfig;
 	}//createDefaultConfig
 
