@@ -36,11 +36,16 @@ public class SetCardsAction extends SetCallAction
     }
 
     /**
-     * @return
-     * 		whether this action is a "play" move
+     * @return whether this action is a card 
      */
-    public boolean isPlay() {
+    public boolean isCards() {
         return true;
     }
     
+    /**
+     * @return whether this action is quit
+     */
+    public boolean isQuit() {
+        return false;
+    }
 }

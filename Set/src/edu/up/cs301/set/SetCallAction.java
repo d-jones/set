@@ -35,7 +35,7 @@ public abstract class SetCallAction extends GameAction {
     /**
      * @return whether the move was a card
      */
-    public boolean isCard() {
+    public boolean isCards() {
     	return false;
     }
     
