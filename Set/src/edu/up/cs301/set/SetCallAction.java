@@ -10,7 +10,7 @@ import edu.up.cs301.game.actionMsg.GameAction;
  * @author Dillon Arnold
  * @version 1 November 2013
  */
-public abstract class SetCallAction extends GameAction {
+public abstract class SetCallAction extends SJMoveAction {
 	
 	private static final long serialVersionUID = -3107100271012188849L;
 
@@ -30,19 +30,5 @@ public abstract class SetCallAction extends GameAction {
      */
     public boolean isCall() {
     	return true;
-    }
-    
-    /**
-     * @return whether the move was a card
-     */
-    public boolean isCards() {
-    	return false;
-    }
-    
-    /**
-     * @return whether the move was quit
-     */
-    public boolean isQuit() {
-    	return false;
     }
 }

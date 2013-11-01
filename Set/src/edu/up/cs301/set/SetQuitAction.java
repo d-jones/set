@@ -10,4 +10,10 @@ public class SetQuitAction extends SetMoveAction {
 		super(player);
 	}
 
+	/**
+     * @return whether the move was quit
+     */
+    public boolean isQuit() {
+    	return true;
+    }
 }

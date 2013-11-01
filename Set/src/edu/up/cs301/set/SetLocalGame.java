@@ -101,13 +101,12 @@ public class SetLocalGame extends LocalGame implements Game {
 	 */
 	protected boolean canMove(int playerIdx) {
 		if (playerIdx < 0 || playerIdx > 1) {
-			// if our player-number is out of range, return false
+			// If our player-number is out of range, return false
 			return false;
 		}
 		else {
-			// player can move if it's their turn, or if the middle deck is non-empty
-			// so they can slap
-			return state.getDeck(2).size() > 0 || state.toPlay() == playerIdx;
+			// Player can move
+			return state.toPlay() == playerIdx;
 		}
 	}
 
@@ -122,35 +121,24 @@ public class SetLocalGame extends LocalGame implements Game {
 	@Override
 	protected boolean makeMove(GameAction action) {
 		
-		// check that we have slap-jack action; if so cast it
-		if (!(action instanceof SetCallAction)) {
+		// Check that we have slap-jack action; if so cast it
+		if (!(action instanceof SetMoveAction)) {
 			return false;
 		} 
-		SetCallAction sjma = (SetCallAction) action;
+		SetCallAction sma = (SetMoveAction) action;
 		
-		// get the index of the player making the move; return false
-		int thisPlayerIdx = getPlayerIdx(sjma.getPlayer());
+		// Get the index of the player making the move; return false
+		int playerIdx = getPlayerIdx(sma.getPlayer());
 		
-		if (thisPlayerIdx < 0) { // illegal player
+		if (playerIdx < 0) { // illegal player
 			return false;
 		}
 
-		if (sjma.isSlap()) {
-			// if we have a slap 
-			if (state.getDeck(2).size() == 0) {
-				// empty deck: return false, as move is illegal
-				return false;
-			}
-			else if (state.getDeck(2).peekAtTopCard().getRank() == Rank.JACK){
-				// a Jack was slapped: give all cards to slapping player
-				giveMiddleCardsToPlayer(thisPlayerIdx);
-			}
-			else {
-				// a non-Jack was slapped: give all cards to non-slapping player
-				giveMiddleCardsToPlayer(1-thisPlayerIdx);
-			}
+		if (sma.isCall()) {
+			// If we have a call 
+			state.setToPlay(playerIdx);
 		}
-		else if (sjma.isPlay()) { // we have a "play" action
+		else if (sma.isCards()) { // we have a "play" action
 			if (thisPlayerIdx != state.toPlay()) {
 				// attempt to play when it's the other player's turn
 				return false;

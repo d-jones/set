@@ -10,7 +10,7 @@ import edu.up.cs301.game.GamePlayer;
  * @author Dillon Arnold
  * @version 28 October 2013
  */
-public class SetCardsAction extends SetCallAction
+public class SetCardsAction extends SetMoveAction
 {
 	private static final long serialVersionUID = 3250639793499599047L;
 
@@ -49,10 +49,4 @@ public class SetCardsAction extends SetCallAction
 		return true;
 	}
 
-	/**
-	 * @return whether this action is quit
-	 */
-	public boolean isQuit() {
-		return false;
-	}
 }
