@@ -103,12 +103,11 @@ public class SetLocalGame extends LocalGame implements Game {
 	}
 
 	/**
-	 * makes a move on behalf of a player
+	 * Makes a move on behalf of a player
 	 * 
-	 * @param action
-	 * 		the action denoting the move to be made
-	 * @return
-	 * 		true if the move was legal; false otherwise
+	 * @param action - the action denoting the move to be made
+	 * 
+	 * @return true if the move was legal; false otherwise
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {
@@ -148,31 +147,14 @@ public class SetLocalGame extends LocalGame implements Game {
 				else {
 					//Penalty
 				}
+				state.setToPlay(-1);
 			}
 		}
-		else { // some unexpected action
-			return false;
-		}
+		// Some unexpected action
+		else return false;
 
-		// return true, because the move was successful if we get her
+		// Move was successful 
 		return true;
 	}
 	
-	/**
-	 * helper method that gives all the cards in the middle deck to
-	 * a given player; also shuffles the target deck
-	 * 
-	 * @param idx
-	 * 		the index of the player to whom the cards should be given
-	 */
-	private void giveMiddleCardsToPlayer(int idx) {
-		// illegal player: ignore
-		if (idx < 0 || idx > 1) return;
-		
-		// move all cards from the middle deck to the target deck
-		state.getDeck(2).moveAllCardsTo(state.getDeck(idx));
-		
-		// shuffle the target deck
-		state.getDeck(idx).shuffle();
-	}
 }
