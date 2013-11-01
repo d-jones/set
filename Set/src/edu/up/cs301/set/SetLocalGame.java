@@ -2,30 +2,31 @@ package edu.up.cs301.set;
 
 import android.util.Log;
 import edu.up.cs301.card.Rank;
+import edu.up.cs301.game.Game;
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.LocalGame;
 import edu.up.cs301.game.actionMsg.GameAction;
 import edu.up.cs301.game.config.GameConfig;
 
 /**
- * The LocalGame class for a slapjack game.  Defines and enforces
+ * The LocalGame class for a Set game.  Defines and enforces
  * the game rules; handles interactions between players.
  * 
- * @author Steven R. Vegdahl 
- * @version July 2013
+ * @author Dillon Arnold 
+ * @version 1 November 2013
  */
 
-public class SetLocalGame extends LocalGame implements SetGame {
+public class SetLocalGame extends LocalGame implements Game {
 
-    // the game's state
+    // The game's state
     SetState state;
 
     /**
-     * Constructor for the SJLocalGame.
+     * Constructor for the SetLocalGame.
      */
     public SetLocalGame() {
-        Log.i("SJLocalGame", "creating game");
-        // create the state for the beginning of the game
+        Log.i("SetLocalGame", "creating game");
+        // Create the state for the beginning of the game
         state = new SetState();
     }
 
@@ -38,33 +39,32 @@ public class SetLocalGame extends LocalGame implements SetGame {
      */
     @Override
     protected String checkIfGameOver() {
-    	
-    	if (state.getDeck(2).size() > 0) {
-    		// there are cards in the middle pile
-    		if (state.getDeck(0).size() == 0 &&
-    				state.getDeck(1).size() == 0 &&
-    				state.getDeck(2).peekAtTopCard().getRank() != Rank.JACK) {
-    			// All the cards have ended up in the middle pile, and the top card
-    			// is not a Jack. This situation is a draw, since the only move a player
-    			// would would be to slap the top card, causing his opponent to win.
-    			return "game is a draw";
+    	// No more sets can be formed
+    	if(state.getDeck(0).size() == 0) {
+    		if(state.getSetPossible() == false) {
+    			int maxScore;
+    			int playerIdx;
+    			maxScore = state.getScore(0);
+    			playerIdx = 0;
+    			boolean draw = false;
+    			for (int i = 1; i < numPlayers; i++) {
+    				if (state.getScore(i) > maxScore) {
+    					maxScore = state.getScore(i);
+    	    			playerIdx = i;
+    	    			draw = false;
+    				}
+    				else if (state.getScore(i) == maxScore) {
+    					draw = true;
+    				}
+    			}
+    			if (!draw) {
+    				return this.playerNames[playerIdx]+" is the winner";
+    			}
+    			else return "Game is a draw";
     		}
-    		else {
-    			// there are either cards in at least two piles, or all cards are in the
-    			// middle pile with a Jack on top; return null, as the game is not over
-    			return null;
-    		}
-    	}
-    	else if (state.getDeck(0).size() <= 0) {
-    		// player 1 has all the cards
-    		return this.playerNames[1]+" is the winner";
-    	}
-    	else if (state.getDeck(1).size() <= 0) {
-    		// player 0 has all the cards
-    		return this.playerNames[0]+" is the winner";
     	}
     	else {
-    		// each player has some cards: no winner yet
+    		// Sets can still be formed
     		return null;
     	}
     }
